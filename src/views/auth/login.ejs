@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/css/bulma.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"></script>
+    <title>Add product</title>
+    <style>
+      .notification {max-width:40%; margin: auto;}
+    </style>
+  </head>
+  <body>
+  <section class="section">
+    <div class="container">
+      <h1 class="title">
+        Login
+      </h1>
+      <section class="hero">
+        <div class="hero-body">
+          <div class="container">
+            <% if (flashError.length > 0) { %>
+            <div class="notification is-danger">
+              <button id="close" class="delete"></button>
+              <strong><%= flashError %></strong>
+            </div>
+            <% } %>
+            <div class="columns is-centered">
+              <div class="column is-5-tablet is-4-desktop is-3-widescreen">
+                <form action="/login" method="POST" class="box">
+                  <div class="field has-text-centered">
+                    <img src="/img/coq.webp" width="188" height="188">
+                  </div>
+                  <div class="field">
+                    <label class="label">email</label>
+                    <div class="control has-icons-left">
+                      <input class="input" name="email" type="email" placeholder="elbarto@gmail.com">
+                      <span class="icon is-small is-left">
+                        <i class="fa fa-envelope"></i>
+                      </span>
+                    </div>
+                  </div>
+                  <div class="field">
+                    <label class="label">password</label>
+                    <div class="control has-icons-left">
+                      <input class="input" name="password" type="password" placeholder="**********" required>
+                      <span class="icon is-small is-left">
+                        <i class="fa fa-lock"></i>
+                      </span>
+                    </div>
+                  </div>
+                  <div class="field">
+                    <label class="checkbox">
+                      <input type="checkbox">
+                      Remember me
+                    </label>
+                  </div>
+                  <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                  <div class="field">
+                    <button type="submit" class="button is success">
+                      Login
+                    </button>
+                  </div>
+                </form>
+                <a href="/reset" class="">Reset your password</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </section>
+  <script>
+    const close = document.getElementById('close')
+    close.addEventListener('click', function(e) {
+      console.log(e.target)
+      const notification = e.target.parentNode
+      notification.parentNode.removeChild(notification)
+    })
+  </script>
+  </body>
+</html>

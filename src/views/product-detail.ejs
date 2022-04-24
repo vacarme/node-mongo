@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/css/bulma.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"></script>
+    <title>Product List</title>
+  </head>
+  <body>
+    <header>
+    <%- include('./navigation.ejs') %>
+    </header>
+    <main>
+      <section class="section columns">
+        <%- include('./left-panel.ejs') %>
+        <div class="column">
+          <h1 class="title"><%= product.name %></h1>
+          <div class="columns is-multiline">
+            <div class="column is-3 is-offset-one-third ">
+              <article class="">
+                <div class="image">
+                  <figure class="image">
+                    <img src="<%= product.image %>">
+                  </figure>
+                </div>
+                <div class="box">
+                  <div class="content">
+                    <p class="title"><%= product.price %> ¥</p>
+                    <p class="has-text-justified"><%= product.description %></p>
+                  </div>
+                  <% if(isLogged) { %>
+                  <form class="control" action="/cart" method="POST">
+                    <button type="submit" name="button" class="button">Add to Cart</button>
+                    <input type="hidden" name="id" value="<%= product.id%>">
+                    <input type="hidden" name="name" value="<%= product.name%>">
+                    <input type="hidden" name="price" value="<%= product.price%>">
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                  </form>
+                  <% } %>
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

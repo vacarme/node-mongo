@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/css/bulma.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"></script>
+    <title>Add product</title>
+    <style type="text/css">
+    .container {
+      padding-left: 7rem;
+      padding-right: 7rem;
+    }
+    img { width: 650px; height: 500px;}
+    form { min-width: 40%;}
+    #pwd_eye {opacity: 10%; pointer-events:auto;transition: opacity .2s ease-in;}
+    #pwd_eye:hover {opacity: 100%;}
+      </style>
+  </head>
+  <body>
+  <section class="section">
+    <div class="container">
+      <h1 class="title">
+        Account Creation
+      </h1>
+      <h2 class="subtitle">Here, you are going to create an accout.</h2>
+      <section class="is-fullheight">
+        <div class="hero-body box">
+          <div class="container is-flex">
+            <form action="/signup" method="POST" class="" novalidate>
+              <div class="field">
+                <label class="label">email</label>
+                <div class="control has-icons-right">
+                  <input id="email_input" class="input" type="email" name="email" placeholder="alex@mail.com">
+                  <span id="email_icon" class="icon is-small is-right">
+                  </span>
+                </div>
+                <p id="email_helper" class="help"></p>
+              </div>
+
+
+              <div class="field">
+                <label class="label">password</label>
+                <div class="control has-icons-right">
+                  <input id="pwd_input" class="input" type="password" name="password" placeholder="**********" required>
+                  <span id="pwd_eye" class="icon is-small is-right has-text-black">
+                    <i class="fas fa-eye"></i>
+                  </span>
+                </div>
+                <p id="pwd_helper" class="help"></p>
+              </div>
+
+              <div class="field">
+                <label class="checkbox">
+                  <input type="checkbox">
+                  I accept terms of servcice
+                </label>
+              </div>
+              <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+              <div class="field">
+                <button type="submit" class="button is success">
+                  Create Account
+                </button>
+              </div>
+            </form>
+            <img class="" src="img/coq.webp">
+          </div>
+          <div class="container is-flex">
+            <p class="has-text-grey">⚡ ideally your password should be unique and at least 16 characters</p>
+          </div>
+        </div>
+      </section>
+    </div>
+  </section>
+  </body>
+</html>
+
+<script>
+
+//validation email
+const emailInput = document.getElementById('email_input')
+const emailHelper = document.getElementById('email_helper')
+const emailIcon = document.getElementById('email_icon')
+const emailRegex = /^[^\s@.]\S*@[0-9\p{L}]{1}[0-9\p{L}-]*[0-9\p{L}]{1}\.\p{L}{2,}$/u
+//validation du mdp
+const pwdInput = document.getElementById('pwd_input')
+const pwdHelper = document.getElementById('pwd_helper')
+const pwdEye = document.getElementById('pwd_eye')
+
+
+
+pwdInput.addEventListener('input', function (e) {
+  const pwdLength = e.target.value.length
+  if(pwdLength < 10) {
+    pwdHelper.textContent = `${e.target.value.length}/10 or more`
+  } else {
+    pwdHelper.textContent = ''
+  }
+})
+
+emailInput.addEventListener('focusout', function(e) {
+  if(!emailRegex.test(e.target.value)) {
+    emailHelper.textContent = 'Invalid email adress'
+    emailHelper.classList.add('is-danger')
+    emailInput.classList.add('is-danger')
+    emailIcon.classList.add('has-text-danger')
+    emailIcon.innerHTML = '<i class="fas fa-exclamation-triangle has-text-danger"></i>'
+  } else {
+    emailHelper.classList.remove('is-danger')
+    emailIcon.innerHTML = '<i class="fas fa-check has-text-success"></i>' 
+    emailInput.classList.remove('is-danger')
+    emailIcon.classList.remove('has-text-danger')
+    emailHelper.textContent = ''
+  }
+
+})
+</script>

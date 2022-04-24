@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/css/bulma.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"></script>
+    <title>Add product</title>
+  </head>
+  <body>
+    <header>
+    <%- include('./navigation.ejs') %>
+    </header>
+    <main class="section columns">
+        <%- include('./left-panel.ejs') %>
+        <div class="column is-5">
+      <h1 class="title">ORDERS of <%= username %></h1>
+      <% if( orders ) { %>
+          <% for (order of orders) { %>
+      <div class="box">
+        <article class="media">
+          <div class="media-content">
+            <strong>Commande du <%=order.date.toLocaleDateString('fr-FR', {weekday:'long', year:'numeric', month:'long', day:'numeric'}) %></strong> à <%= order.date.toLocaleTimeString('fr-FR') %>
+            
+            <div class="content"></div>
+            <ul><% for (item of order.items) { %>
+              <li><%=item %></li>
+              <% } %>
+            </ul>
+            </div>
+          </div>
+        </article>
+      </div>
+      <% } %>
+      <% } else { %>
+        <p>Cart is empty</p>
+      <% } %>
+    </div>
+    </main>
+  </body>
+</html>

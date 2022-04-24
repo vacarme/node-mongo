@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/css/bulma.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"></script>
+    <title>Add product</title>
+  </head>
+  <body>
+  <section class="section">
+    <div class="container">
+      <h1 class="title">
+        Password Reset - Step 1/2
+      </h1>
+      <section class="hero is-fullheight">
+        <div class="hero-body">
+          <div class="container">
+            <div class="columns is-centered">
+              <div class="column is-5-tablet is-4-desktop is-3-widescreen">
+                <form action="/pwd-reset" method="POST" class="box">
+                  <div class="field">
+                    <label class="label">email</label>
+                    <div class="control has-icons-left">
+                      <input class="input" name="email" type="email" placeholder="elbarto@gmail.com">
+                      <span class="icon is-small is-left">
+                        <i class="fa fa-envelope"></i>
+                      </span>
+                    </div>
+                  </div>
+                  <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                  <div class="field">
+                    <button type="submit" class="button is success">
+                      Ask for a password reset
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </section>
+  </body>
+</html>

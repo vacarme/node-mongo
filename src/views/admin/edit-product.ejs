@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/css/bulma.css">
+    <title>Edit product</title>
+  </head>
+  <body>
+    <header>
+      <%- include('../navigation.ejs') %>
+    </header>
+    <main class="section">
+      <h1 class="title">Edit a product</h1>
+
+      <form class="" action="/admin/edit-product" method="POST">
+        <div class="field">
+          <label class="label">Nom</label>
+          <div class="control">
+            <input type="text" class="input" value="<%=product.name%>" name="name">
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">URL Image</label>
+          <div class="control">
+            <input type="text" name="image" class="input" value="<%=product.image%>">
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">Prix</label>
+          <div class="control">
+            <input type="number" name="price" class="input" value="<%=product.price%>">
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">Description</label>
+          <div class="control">
+            <textarea name="description" class="textarea"><%=product.description%></textarea>
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">User ID</label>
+          <div class="control">
+            <input name="userId" type="text" class="input is-static" value="<%=product.userId%>" readonly></input>
+          </div>
+        </div>
+        <input type="hidden" name="_id" value="<%= product._id%>">
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+        <div class="field">
+          <div class="control">
+            <button type="submit" name="button" class="button">Valider</button>
+          </div>
+        </div>
+      </form>
+    </main>
+  </body>
+</html>

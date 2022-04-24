@@ -1,0 +1,51 @@
+<nav class="navbar has-shadow" role="navigation">
+  <div class="navbar-brand">
+    <a class="navbar-item" href="/">
+      <img src="/donut.gif" width="28" height="28">
+    </a>
+    <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+
+  <div id="navbarBasicExample" class="navbar-menu">
+    <div class="navbar-start">
+      <a href="/" class="navbar-item">Shop</a>
+      <a href="/product-list" class="navbar-item">Product List</a>
+      <% if(isLogged) { %>
+      <a href="/cart" class="navbar-item">Cart</a>
+      <a href="/orders" class="navbar-item">Orders</a>
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">Admin</a>
+        <div class="navbar-dropdown">
+          <a href="/admin/add-product" class="navbar-item">Add Product</a>
+          <a href="/admin/products" class="navbar-item">Product List</a>
+          <hr class="navbar-divider">
+          <a class="navbar-item">Report an issue</a>
+        </div>
+      </div>
+      <% } %>
+    </div>
+    <div class="navbar-end">
+      <div class="navbar-item">
+        <% if(!isLogged) { %>
+        <div class="buttons">
+          <a href="/signup" class="button is-primary">
+            <strong>Sign up</strong>
+          </a>
+          <a href="/login" class="button is-light">
+            Log in
+          </a>
+        </div>
+        <% } else { %>
+        <form action="/logout" method="POST" class="control">
+          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+          <button type="submit" class="button is-danger is-light">Logout</button>
+        </form>
+        <% } %>
+      </div>
+    </div>
+  </div>
+</nav>

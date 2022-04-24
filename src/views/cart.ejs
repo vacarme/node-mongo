@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/css/bulma.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"></script>
+    <title>Add product</title>
+  </head>
+  <body>
+    <header>
+    <%- include('./navigation.ejs') %>
+    </header>
+    <main class="section columns">
+        <%- include('./left-panel.ejs') %>
+        <div class="column is-5">
+      <h1 class="title">CART</h1>
+      <% if(cart) { %>
+          <% for (item of cart.items) { %>
+      <div class="box">
+        <article class="media">
+          <figure class="media-left">
+            <p class="image is-96x96">
+              <img src=<%= item.image %>>
+            </p>
+          </figure>
+          <div class="media-content">
+            <div class="content">
+              <p>
+                <strong><%= item.name %></strong>
+                <br>
+                <%= item.description %>...
+              </p>
+              <p>
+                <%= item.price %> x <%= item.quantity %> = <%= item.price_batch %> €
+              </p>
+            </div>
+            <nav class="level is-mobile">
+              <div class="level-left">
+                <form class="level-item" action="/adjust-cart?sens=up" method="POST">
+                  <input type="hidden" name="productId" value="<%=item._id%>">
+                  <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                  <button type="submit"class="button is-small">
+                    <span class="icon is-small">
+                      <i class="fas fa-plus"></i>
+                    </span>
+                  </button>
+                </form>
+                <form class="level-item" action="/adjust-cart?sens=down" method="POST">
+                  <input type="hidden" name="productId" value="<%=item._id%>">
+                  <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                  <button type="submit"class="button is-small">
+                    <span class="icon is-small">
+                      <i class="fas fa-minus"></i>
+                    </span>
+                  </button>
+                </form>
+              </div>
+            </nav>
+          </div>
+          <form class="media-right buttons" action="/delete-product-cart" method="POST">
+            <input type="hidden" name="productId" value="<%=item._id%>">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            <button type="submit"class="button is-small"style="border-color: transparent;">
+              <span class="icon is-small">
+                <i class="fas fa-times"></i>
+              </span>
+            </button>
+          </form>
+        </article>
+      </div>
+      <% } %>
+      <div class="field is-grouped">
+        <form action="/checkout" method="post" class="control">
+          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+          <button type="submit" class="button is-medium">
+            <span class="icon">
+              <i class="fab fa-paypal"></i>
+            </span>
+            <span>Checkout <%= cart.price_total %> €</span>
+            <input type="hidden" name="price_total" value="<%=cart.price_total%>">
+          </button>
+        </form>
+        <form action="/drop-cart" method="post" class="control">
+          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+          <button type="submit" class="button is-medium">
+            <span class="icon">
+              <i class="fas fa-times"></i>
+            </span>
+            <span>Delete Cart</span>
+          </button>
+        </form>
+      </div>
+      <% } else { %>
+        <p>Such empty :\</p>
+      <% } %>
+    </div>
+    </main>
+  </body>
+</html>

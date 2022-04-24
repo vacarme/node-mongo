@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/css/bulma.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"></script>
+    <title>Product List</title>
+  </head>
+  <body>
+    <header>
+    <%- include('./navigation.ejs') %>
+    </header>
+    <main>
+      <section class="section columns">
+        <% if(isLogged) { %>
+          <%- include('./left-panel.ejs') %>
+        <% } %>
+        <div class="column">
+          <h1 class="title">Products</h1>
+          <nav class="level">
+            <div class=level-left>
+              <div class="level-item">
+                <p class=subtitle>
+                  <strong><%= products.length %></strong> Products
+                </p>
+              </div>
+              <div class="level-item is-hidden-tablet-only">
+                <div class="field has-addons">
+                  <p class="control">
+                    <input class="input" type="text" placeholder="Title, date...">
+                  </p>
+                  <p class="control">
+                    <button class="button">
+                      Search
+                    </button>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="level-right">
+              <div class="level-item">
+                Order by
+              </div>
+              <div class="level-item">
+                <div class="select">
+                  <select>
+                    <option>Publish date</option>
+                    <option>Price</option>
+                    <option>Page count</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </nav>
+          <% if( products.length ) { %>
+          <div class="columns is-multiline">
+              <% for (product of products) { %>
+            <div class="column is-12-tablet is-6-desktop is-4-widescreen ">
+              <article class="card">
+                <div class="card-image">
+                  <figure class="image">
+                    <img src="<%= product.image %>" alt="daniel">
+                  </figure>
+                </div>
+                <div class="card-content">
+                  <div class="content">
+                    <p class=title><%= product.name %> - <span class="subtitle"><%= product.price %></span></p>
+                    <p><%= product.description %></p>
+                  </div>
+                  <div class="card-footer">
+                    <a href="/product-list/<%= product._id %>" class="card-footer-item">Detail</a>
+                    <% if(isLogged) { %>
+                    <form class="control card-footer-item" action="/cart" method="POST">
+                      <button type="submit" name="button" class="button">Add to Cart</button>
+                      <input type="hidden" name="_id" value="<%= product._id%>">
+                      <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                    </form>
+                    <% } %>
+                  </div>
+                </div>
+              </article>
+            </div>
+            <% } %>
+          </div>
+        </div>
+        <% } else { %>
+          <p>No product found</p>
+        <% } %>
+      </section>
+    </main>
+  </body>
+</html>

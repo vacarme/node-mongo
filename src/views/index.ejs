@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/css/bulma.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"></script>
+    <title>Add product</title>
+  </head>
+  <body>
+    <header>
+    <%- include('./navigation.ejs') %>
+    </header>
+    <main>
+      <section class="section columns">
+        <% if(isLogged) { %>
+        <%- include('./left-panel.ejs') %>
+        <% } %>
+        <div class="column">
+          <p>Bienvenue à a maison</p>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
